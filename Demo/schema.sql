@@ -67,3 +67,12 @@ CREATE TABLE IF NOT EXISTS message_read_receipts (
     FOREIGN KEY (message_id) REFERENCES messages(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+-- Table for contacts
+CREATE TABLE IF NOT EXISTS contacts (
+    user_id BIGINT,
+    contact_id BIGINT,
+    PRIMARY KEY (user_id, contact_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (contact_id) REFERENCES users(id)
+);
