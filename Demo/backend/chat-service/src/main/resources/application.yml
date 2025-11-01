@@ -1,22 +1,23 @@
 spring:
   application:
-    name: test-service
+    name: chat-service
   datasource:
-    url: jdbc:mysql://localhost:3306/test_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/whatsapp_clone?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: ashok
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-
+  kafka:
+    bootstrap-servers: localhost:9092
 server:
-  port: 8084
+  port: 8082
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-jwt:
-  secret: YWHx2ms0eGJhYlN6TkJqbENBblUyTktWbEZka3NaNElvNkliZlJ3czZ1skhqbdjqw
+app:
+  jwt-secret: YWHx2ms0eGJhYlN6TkJqbENBblUyTktWbEZka3NaNElvNkliZlJ3czZ1skhqbdjqw

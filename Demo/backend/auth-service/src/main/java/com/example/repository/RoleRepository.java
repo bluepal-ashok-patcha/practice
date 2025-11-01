@@ -1,9 +1,10 @@
 package com.example.repository;
 
 import com.example.entities.Role;
+import com.example.entities.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    Optional<Role> findByName(String name);
+    Optional<Role> findByName(RoleName name);
 }

@@ -1,11 +1,8 @@
 spring:
   application:
     name: auth-service
-
-
-
   datasource:
-    url: jdbc:mysql://localhost:3306/auth_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/whatsapp_clone?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: ashok
   jpa:
@@ -13,8 +10,14 @@ spring:
       ddl-auto: update
     show-sql: true
 
-jwt:
-  secret: YWHx2ms0eGJhYlN6TkJqbENBblUyTktWbEZka3NaNElvNkliZlJ3czZ1skhqbdjqw
-  expiration-ms: 86400000   # 1 day
+app:
+  jwt-secret: YWHx2ms0eGJhYlN6TkJqbENBblUyTktWbEZka3NaNElvNkliZlJ3czZ1skhqbdjqw
+  jwt-expiration-milliseconds: 86400000   # 1 day
+
 server:
   port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

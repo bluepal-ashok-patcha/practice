@@ -18,6 +18,7 @@ public class JwtUtil {
         try {
             Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
             UserDto userDto = new UserDto();
+            userDto.setId(claims.get("userId", Long.class));
             userDto.setUsername(claims.getSubject());
             userDto.setRoles(Arrays.asList(claims.get("roles", String.class).split(",")));
             return userDto;
