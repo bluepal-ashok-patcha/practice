@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -7,7 +8,6 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
-import com.example.dto.UserDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -36,9 +36,15 @@ public class AuthenticationFilter implements GatewayFilter {
             try {
                 jwtUtil.validateToken(token);
                 UserDto userDto = jwtUtil.getUserDto(token);
-                if (request.getURI().getPath().contains("/admin/") && !userDto.getRoles().contains("ADMIN")) {
+
+                if (request.getURI().getPath().contains("/api/chat") && !userDto.getRoles().contains("USER")) {
                     return this.onError(exchange, "User is not authorized", HttpStatus.UNAUTHORIZED);
                 }
+
+                exchange.getRequest().mutate()
+                        .header("X-User-Id", String.valueOf(userDto.getId()))
+                        .header("X-User-Roles", String.join(",", userDto.getRoles()))
+                        .build();
             } catch (Exception e) {
                 return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
             }

@@ -17,13 +17,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PutMapping("/{userId}/status")
-    public ResponseEntity<UserDto> updateUserStatus(@PathVariable Long userId, @RequestBody UserStatus status) {
+    @PutMapping("/status")
+    public ResponseEntity<UserDto> updateUserStatus(@RequestHeader("X-User-Id") Long userId, @RequestBody UserStatus status) {
         return ResponseEntity.ok(userService.updateUserStatus(userId, status));
     }
 
-    @PutMapping("/{userId}/profile-photo")
-    public ResponseEntity<UserDto> updateProfilePhoto(@PathVariable Long userId, @RequestBody ProfilePhotoDto profilePhotoDto) {
+    @PutMapping("/profile-photo")
+    public ResponseEntity<UserDto> updateProfilePhoto(@RequestHeader("X-User-Id") Long userId, @RequestBody ProfilePhotoDto profilePhotoDto) {
         return ResponseEntity.ok(userService.updateProfilePhoto(userId, profilePhotoDto));
     }
 

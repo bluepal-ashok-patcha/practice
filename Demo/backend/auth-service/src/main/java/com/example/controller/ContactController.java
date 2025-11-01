@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users/{userId}/contacts")
+@RequestMapping("/api/contacts")
 public class ContactController {
 
     @Autowired
     private ContactService contactService;
 
     @PostMapping
-    public ResponseEntity<Void> addContact(@PathVariable Long userId, @RequestBody ContactDto contactDto) {
+    public ResponseEntity<Void> addContact(@RequestHeader("X-User-Id") Long userId, @RequestBody ContactDto contactDto) {
         contactService.addContact(userId, contactDto);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getContacts(@PathVariable Long userId) {
+    public ResponseEntity<List<UserDto>> getContacts(@RequestHeader("X-User-Id") Long userId) {
         return ResponseEntity.ok(contactService.getContacts(userId));
     }
 }

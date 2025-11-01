@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.dto.LoginDto;
 import com.example.dto.RegisterDto;
 import com.example.entities.Role;
+import com.example.entities.RoleName;
 import com.example.entities.User;
 import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
@@ -57,7 +58,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("USER")
+        Role userRole = roleRepository.findByName(RoleName.USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(userRole);
         user.setRoles(roles);

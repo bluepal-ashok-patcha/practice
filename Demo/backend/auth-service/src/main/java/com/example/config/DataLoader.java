@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.entities.Role;
+import com.example.entities.RoleName;
 import com.example.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -15,11 +16,11 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if (roleRepository.findByName("USER").isEmpty()) {
-            roleRepository.save(new Role("USER"));
+        if (roleRepository.findByName(RoleName.USER).isEmpty()) {
+            roleRepository.save(new Role(RoleName.USER));
         }
-        if (roleRepository.findByName("ADMIN").isEmpty()) {
-            roleRepository.save(new Role("ADMIN"));
+        if (roleRepository.findByName(RoleName.ADMIN).isEmpty()) {
+            roleRepository.save(new Role(RoleName.ADMIN));
         }
     }
 }

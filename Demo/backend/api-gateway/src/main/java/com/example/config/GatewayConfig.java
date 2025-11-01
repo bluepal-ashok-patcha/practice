@@ -20,7 +20,7 @@ public class GatewayConfig {
                 .route("user-service", r -> r.path("/api/users/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://auth-service"))
-                .route("contact-service", r -> r.path("/api/users/{userId}/contacts/**")
+                .route("contact-service", r -> r.path("/api/contacts/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://auth-service"))
                 .route("chat-service", r -> r.path("/api/chat/**", "/ws/**")
