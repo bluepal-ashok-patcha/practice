@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Since gateway handles auth, open internally
+                        .anyRequest().permitAll()
                 );
         return http.build();
     }
