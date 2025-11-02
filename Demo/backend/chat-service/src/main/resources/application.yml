@@ -23,3 +23,7 @@ eureka:
 
 app:
   jwt-secret: YWHx2ms0eGJhYlN6TkJqbENBblUyTktWbEZka3NaNElvNkliZlJ3czZ1skhqbdjqw
+
+logging:
+  level:
+    com.example: DEBUG
