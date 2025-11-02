@@ -6,6 +6,8 @@ import com.example.entities.UserStatus;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +20,14 @@ public class UserController {
     private UserService userService;
 
     @PutMapping("/status")
-    public ResponseEntity<UserDto> updateUserStatus(@RequestHeader("X-User-Id") Long userId, @RequestBody UserStatus status) {
+    public ResponseEntity<UserDto> updateUserStatus(@AuthenticationPrincipal Jwt jwt, @RequestBody UserStatus status) {
+        Long userId = jwt.getClaim("userId");
         return ResponseEntity.ok(userService.updateUserStatus(userId, status));
     }
 
     @PutMapping("/profile-photo")
-    public ResponseEntity<UserDto> updateProfilePhoto(@RequestHeader("X-User-Id") Long userId, @RequestBody ProfilePhotoDto profilePhotoDto) {
+    public ResponseEntity<UserDto> updateProfilePhoto(@AuthenticationPrincipal Jwt jwt, @RequestBody ProfilePhotoDto profilePhotoDto) {
+        Long userId = jwt.getClaim("userId");
         return ResponseEntity.ok(userService.updateProfilePhoto(userId, profilePhotoDto));
     }
 

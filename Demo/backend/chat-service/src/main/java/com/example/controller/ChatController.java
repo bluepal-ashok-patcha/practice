@@ -13,6 +13,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +45,8 @@ public class ChatController {
     }
 
     @GetMapping("/chats")
-    public ResponseEntity<List<Chat>> getUserChats(@RequestHeader("X-User-Id") Long userId) {
+    public ResponseEntity<List<Chat>> getUserChats(@AuthenticationPrincipal Jwt jwt) {
+        Long userId = jwt.getClaim("userId");
         return ResponseEntity.ok(chatService.getUserChats(userId));
     }
 
@@ -53,7 +56,8 @@ public class ChatController {
     }
 
     @PostMapping("/messages")
-    public ResponseEntity<Void> sendMessage(@RequestHeader("X-User-Id") Long userId, @Valid @RequestBody MessageDto messageDto) {
+    public ResponseEntity<Void> sendMessage(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody MessageDto messageDto) {
+        Long userId = jwt.getClaim("userId");
         chatService.sendMessage(userId, messageDto);
         return ResponseEntity.ok().build();
     }
